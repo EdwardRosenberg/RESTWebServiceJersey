@@ -14,6 +14,7 @@ import org.example.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 @Component("userDao")
 public class UserDaoImpl implements UserDao {
 
