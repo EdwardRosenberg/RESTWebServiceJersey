@@ -5,11 +5,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class User {
 	private String userName;
-	private String userPassword;
+	private String userRole;
 
-	public User(String userName, String userPassword) {
+	public User(String userName, String userRole) {
 		this.userName = userName;
-		this.userPassword = userPassword;
+		this.userRole = userRole;
 	}
 
 	public User() {
@@ -24,11 +24,11 @@ public class User {
 		this.userName = userName;
 	}
 
-	public String getUserPassword() {
-		return userPassword;
+	public String getUserRole() {
+		return userRole;
 	}
 
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
 }
