@@ -3,6 +3,7 @@ package org.example.dao.impl;
 import org.example.dao.UserDao;
 import org.example.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -22,11 +23,10 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private DataSource dataSource;
 
-
     @Override
     public List<User> getAllUsers() {
 
-        List<User> users = null;
+        List<User> users = new ArrayList<>();
         try {
             users = executeQuery("SELECT * FROM USER");
         } catch (ClassNotFoundException e) {
