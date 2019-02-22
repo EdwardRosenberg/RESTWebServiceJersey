@@ -1,4 +1,4 @@
-package org.example.web.controller;
+package org.example.resource;
 
 import org.example.dao.UserDao;
 import org.example.domain.User;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @Path("/users")
-public class UserController {
+public class UserResource {
 
     @Autowired
     private UserDao userDao;

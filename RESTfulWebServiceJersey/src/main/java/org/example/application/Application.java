@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.example.web.client.UserInfoClient;
+import org.example.client.UserInfoClient;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.springframework.web.context.ContextLoaderListener;
@@ -30,8 +30,8 @@ public class Application {
         ServletHolder jerseyServlet = context.addServlet(ServletContainer.class, ROOT_CONTEXT_PATH + "*");
         jerseyServlet.setInitOrder(0);
 
-        // Tell Jersey Servlet to load classes in 'controller' package as REST resource.
-        jerseyServlet.setInitParameter(ServerProperties.PROVIDER_PACKAGES, "org.example.web.controller");
+        // Tell Jersey Servlet to load classes in 'resource' package as REST resource.
+        jerseyServlet.setInitParameter(ServerProperties.PROVIDER_PACKAGES, "org.example.resource");
 
         try {
             jettyServer.start();
