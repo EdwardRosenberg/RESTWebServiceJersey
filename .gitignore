@@ -1,0 +1,8 @@
+.metadata
+/target
+/out
+*.tmp
+.project
+
+.idea/
+*.iml
