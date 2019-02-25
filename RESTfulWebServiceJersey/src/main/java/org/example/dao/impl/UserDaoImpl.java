@@ -3,7 +3,6 @@ package org.example.dao.impl;
 import org.example.dao.UserDao;
 import org.example.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -28,7 +27,7 @@ public class UserDaoImpl implements UserDao {
 
         List<User> users = new ArrayList<>();
         try {
-            users = executeQuery("SELECT * FROM USER");
+            users = executeQuery("SELECT * FROM user");
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -41,15 +40,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getUserByName(String name) {
+    public List<User> searchUsers(User user) {
         List<User> users = null;
         try {
-            users = executeQuery("SELECT * FROM USER where name='" + name + "'");
+            users = executeQuery("SELECT * FROM user WHERE username='" + user + "'");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+                // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return users;
@@ -65,6 +64,21 @@ public class UserDaoImpl implements UserDao {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public User getUser(long id) {
+        return null;
+    }
+
+    @Override
+    public void updateUser(User user) {
+
+    }
+
+    @Override
+    public void deleteUser(long id) {
 
     }
 
