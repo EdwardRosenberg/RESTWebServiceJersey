@@ -13,33 +13,39 @@ import java.util.List;
 @Path("/user")
 public class UserResource {
 
-    @Autowired
-    private UserDao userDao;
+	private UserDao userDao;
 
-    @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getAllUsers() {
-        List<User> users = userDao.getAllUsers();
-        return Response.ok().entity(new GenericEntity<List<User>>(users) {}).build();
-    }
+	@Autowired
+	public UserResource(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
-    @GET
-    @Path("/{id}")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public User getUser(@PathParam("id") long id){
-        return userDao.getUser(id);
-    }
+	@GET
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response getAllUsers() {
+		List<User> users = userDao.getAllUsers();
+		return Response.ok().entity(new GenericEntity<List<User>>(users) {}).build();
+	}
 
-    @POST
-    @Path("/search")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<User> searchUsers(User user){
-        return userDao.searchUsers(user);
-    }
+	@GET
+	@Path("/{id}")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response getUser(@PathParam("id") long id) {
+		return Response.ok().entity(userDao.getUser(id)).build();
+	}
 
-    @POST
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void createUser(User user) {
-        userDao.createUser(user);
-    }
+	@POST
+	@Path("/search")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response searchUsers(User user) {
+		List<User> users = userDao.searchUsers(user);
+		return Response.ok().entity(new GenericEntity<List<User>>(users) {}).build();
+	}
+
+	@POST
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response createUser(User user) {
+		userDao.createUser(user);
+		return Response.ok().entity(user).build();
+	}
 }
