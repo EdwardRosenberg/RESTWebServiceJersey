@@ -1,13 +1,13 @@
 package org.example.resource;
 
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.GenericEntity;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.example.dao.UserDao;
 import org.example.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/user")
@@ -24,7 +24,7 @@ public class UserResource {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response getAllUsers() {
 		List<User> users = userDao.getAllUsers();
-		return Response.ok().entity(new GenericEntity<List<User>>(users) {}).build();
+		return Response.ok().entity(new GenericEntity(users) {}).build();
 	}
 
 	@GET
