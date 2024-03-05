@@ -1,19 +1,18 @@
 package org.example.application;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.example.client.UserInfoClient;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.request.RequestContextListener;
 
 public class Application {
 
-    private static final Logger log = LogManager.getLogger(UserInfoClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
     private static final int PORT = 8080;
     private static final String ROOT_CONTEXT_PATH = "/";
 
@@ -35,8 +34,8 @@ public class Application {
 
         try {
             jettyServer.start();
+            LOGGER.info("Jetty server started on port {}", PORT);
             jettyServer.join();
-            log.info("Jetty server started on port {}", PORT);
         } finally {
             jettyServer.destroy();
         }

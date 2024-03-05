@@ -3,9 +3,9 @@ package org.example.client;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.example.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserInfoClient {
 
@@ -13,7 +13,7 @@ public class UserInfoClient {
     public static final String PATH_NAME = "/UserInfoService/name/";
     public static final String PATH_AGE = "/UserInfoService/age/";
 
-    private static final Logger log = LogManager.getLogger(UserInfoClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoClient.class);
 
     Client client = ClientBuilder.newClient();
 
