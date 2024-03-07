@@ -3,17 +3,17 @@ package org.example.client;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.example.domain.User;
+import org.example.domain.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserInfoClient {
+public class PersonInfoClient {
 
     public static final String BASE_URI = "http://localhost:8080/RESTfulWebServiceJersey";
     public static final String PATH_NAME = "/UserInfoService/name/";
     public static final String PATH_AGE = "/UserInfoService/age/";
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonInfoClient.class);
 
     Client client = ClientBuilder.newClient();
 
@@ -31,9 +31,9 @@ public class UserInfoClient {
 
         Invocation.Builder invocationBuilder = employeeWebTarget.request(MediaType.APPLICATION_JSON);
 
-        User getResponse = invocationBuilder.get(User.class);
+        Person getResponse = invocationBuilder.get(Person.class);
 
-        Response postResponse = invocationBuilder.post(Entity.entity(new User("Bob", "admin"), MediaType.APPLICATION_JSON));
+        Response postResponse = invocationBuilder.post(Entity.entity(new Person("Bob"), MediaType.APPLICATION_JSON));
 
         //log.debug("Client Response \n" + getClientResponse(ageResource));
         //log.debug("Response \n" + getResponse(ageResource));
@@ -53,12 +53,12 @@ public class UserInfoClient {
 //        return resource.accept(MediaType.TEXT_XML).get(String.class);
 //    }
 
-    public User getJsonEmployee(int id) {
+    public Person getJsonEmployee(int id) {
         return client
                 .target(BASE_URI + PATH_NAME)
                 .path(String.valueOf(id))
                 .request(MediaType.APPLICATION_JSON)
-                .get(User.class);
+                .get(Person.class);
     }
 
 

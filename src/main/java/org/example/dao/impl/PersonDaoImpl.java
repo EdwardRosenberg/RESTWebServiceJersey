@@ -1,7 +1,7 @@
 package org.example.dao.impl;
 
-import org.example.dao.UserDao;
-import org.example.domain.User;
+import org.example.dao.PersonDao;
+import org.example.domain.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +13,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Repository("userDao")
-public class UserDaoImpl implements UserDao {
+public class PersonDaoImpl implements PersonDao {
 
     private Connection connection = null;
 
@@ -23,11 +22,11 @@ public class UserDaoImpl implements UserDao {
     private DataSource dataSource;
 
     @Override
-    public List<User> getAllUsers() {
+    public List<Person> getAll() {
 
-        List<User> users = new ArrayList<>();
+        List<Person> people = new ArrayList<>();
         try {
-            users = executeQuery("SELECT * FROM user");
+            people = executeQuery("SELECT * FROM user");
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -36,49 +35,48 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
         }
 
-        return users;
+        return people;
     }
 
     @Override
-    public List<User> searchUsers(User user) {
-        List<User> users = null;
+    public List<Person> search(Person person) {
+        List<Person> people = null;
         try {
-            users = executeQuery("SELECT * FROM user WHERE username='" + user + "'");
+            people = executeQuery("SELECT * FROM user WHERE username='" + person + "'");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return users;
+        return people;
     }
 
     @Override
-    public void createUser(User user) {
+    public void create(Person person) {
 
         try {
-            executeUpdateQuery("Insert into user VALUES('" + user.getUserName() + "','" + user.getUserRole() + "')");
+            executeUpdateQuery("Insert into person VALUES('" + person.getName() + "')");
             closeConnection();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
     }
 
     @Override
-    public User getUser(long id) {
+    public Person get(long id) {
         return null;
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(Person person) {
 
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void delete(long id) {
 
     }
 
@@ -103,31 +101,29 @@ public class UserDaoImpl implements UserDao {
                 e.printStackTrace();
             }
         }
-
     }
 
-    public List<User> executeQuery(String query) throws ClassNotFoundException, SQLException {
+    public List<Person> executeQuery(String query) throws ClassNotFoundException, SQLException {
         Connection con = getConnection();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
-        List<User> als = convertPojoList(rs);
+        List<Person> als = convertPojoList(rs);
         closeConnection();
         return als;
     }
 
-    private List<User> convertPojoList(ResultSet rs) {
-        List<User> users = new ArrayList<User>();
+    private List<Person> convertPojoList(ResultSet rs) {
+        List<Person> people = new ArrayList<Person>();
         try {
             while (rs.next()) {
-                User user = new User(rs.getString("name"),
-                        rs.getString("password"));
-                users.add(user);
+                Person person = new Person(rs.getString("name"));
+                people.add(person);
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return users;
+        return people;
     }
 
     private Connection getConnection() throws ClassNotFoundException, SQLException {
