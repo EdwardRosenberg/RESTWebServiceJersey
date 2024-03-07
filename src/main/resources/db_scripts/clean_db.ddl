@@ -1,1 +1,1 @@
-DROP table user;
+DROP table person;
